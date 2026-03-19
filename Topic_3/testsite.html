@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI & UX History</title>
+    <style>
+        /* Base Styles */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9f9f9; }
+        nav { background: #333; padding: 15px; }
+        nav a { color: white; margin-right: 20px; text-decoration: none; font-weight: bold; cursor: pointer; }
+        nav a:hover { text-decoration: underline; }
+        .page { display: none; padding: 20px; }
+        h1 { color: #222; }
+
+        /* Page 1: Severe Errors (Overlap & Overflow) */
+        .cut-off {
+            width: 150vw; 
+            background: #e3f2fd;
+            padding: 20px;
+            border: 3px solid #1976d2;
+            font-size: 24px;
+            margin-top: 50px;
+            line-height: 1.5;
+        }
+        .overlap {
+            position: absolute;
+            top: 100px;
+            left: 20px;
+            font-size: 45px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Page 2: Minor Errors (Contrast & Sizing) */
+        #page2 { background-color: #ffffff; }
+        .bad-contrast {
+            color: #f3f3f3; 
+            background-color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+        .tiny-text { 
+            font-size: 8px; 
+            color: #bbbbbb; 
+            margin-top: 30px;
+            line-height: 1.2;
+        }
+
+        /* Page 3: Good UI (Clean Layout) */
+        #page3 {
+            max-width: 800px; margin: 0 auto; color: #333; line-height: 1.6;
+        }
+        .good-box {
+            background: #ffffff; padding: 25px; border-radius: 8px; border: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#page1">Interaction Design</a>
+        <a href="#page2">Accessibility</a>
+        <a href="#page3">Jakob's Law</a>
+    </nav>
+
+    <div id="page1" class="page">
+        <h1>Interaction Design</h1>
+        <div class="overlap">THE FIRST GRAPHICAL USER INTERFACES WERE DEVELOPED AT XEROX PARC.</div>
+        <div class="cut-off">
+            The concept of user experience (UX) encompasses all aspects of the end-user's interaction with the company, its services, and its products. The first requirement for an exemplary user experience is to meet the exact needs of the customer, without fuss or bother. Next comes simplicity and elegance that produce products that are a joy to own and a joy to use. True user experience goes far beyond giving customers what they say they want or providing checklist features.
+        </div>
+    </div>
+
+    <div id="page2" class="page">
+        <h1>Accessibility Standards</h1>
+        <p class="bad-contrast">According to the Web Content Accessibility Guidelines (WCAG), the visual presentation of text and images of text must have a contrast ratio of at least 4.5:1 for normal text. Large text is defined as 14 point and bold or larger, or 18 point or larger. This ensures that users with moderate visual impairments can read the content without requiring assistive technology.</p>
+        
+        <p class="tiny-text">Fitts's Law states that the amount of time required for a person to move a pointer to a target area is a function of the distance to the target divided by the size of the target. Thus, the longer the distance and the smaller the target's size, the longer it takes to acquire the target. This principle is widely used in UX to size buttons and interactive elements appropriately.</p>
+    </div>
+
+    <div id="page3" class="page">
+        <h1>Jakob's Law</h1>
+        <div class="good-box">
+            <h2>Designing for Familiarity</h2>
+            <p>Jakob's Law dictates that users spend most of their time on other sites. This means that users prefer your site to work the same way as all the other sites they already know. Design for patterns for which users are accustomed.</p>
+            <p>By leveraging existing mental models, we can create superior user experiences in which the users can focus on their tasks rather than learning new models.</p>
+        </div>
+    </div>
+
+    <script>
+        function showPage() {
+            let hash = window.location.hash || '#page1';
+            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+            let target = document.querySelector(hash);
+            
+            if(target) {
+                target.style.display = 'block';
+                // Allow horizontal scrolling only on the first page to trigger the error visually
+                document.body.style.overflowX = (hash === '#page1') ? 'auto' : 'hidden';
+            }
+        }
+        window.addEventListener('hashchange', showPage);
+        window.onload = showPage;
+    </script>
+
+</body>
+</html>
